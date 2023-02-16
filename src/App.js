@@ -1,5 +1,7 @@
 import './App.css';
 var RandomWords = require('random-words');
+var Filter = require('bad-words');
+let filter = new Filter();
 
 Object.defineProperty(String.prototype, 'capitalise', {
 	value: function () {
@@ -10,11 +12,23 @@ Object.defineProperty(String.prototype, 'capitalise', {
 
 const symbols = ['!', '@', '#', '$', '%', '^', '&', '*', '-', '_', '=', '+', '?'];
 
+function IsBadWord(word) {
+	return filter.isProfane(word);
+}
+
+function GetRandomWord() {
+	let word = "";
+	while (IsBadWord(word) || word.length < 5) {
+		word = RandomWords();
+	}
+	return word.capitalise();
+}
+
 function Generator() {
 	let symbol = symbols[Math.floor(Math.random() * symbols.length)];
 	let number = Math.floor(Math.random() * 99);
-	let word1 = RandomWords().capitalise();
-	let word2 = RandomWords().capitalise();
+	let word1 = GetRandomWord();
+	let word2 = GetRandomWord();
 
 	console.log(symbol, number, word1, word2);
 
