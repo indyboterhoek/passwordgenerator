@@ -19,7 +19,7 @@ function IsBadWord(word) {
 
 function GetRandomWord() {
 	let word = "";
-	while (IsBadWord(word) || word.length < 5) {
+	while (IsBadWord(word) || word.length < 7) {
 		word = RandomWords();
 	}
 	return word.capitalise();
